@@ -24,6 +24,20 @@ const routes = [
     }
   },
   {
+    path: '/Team',
+    name: 'Team',
+    component: function () {
+      return import('../views/Team.vue')
+    }
+  },
+  {
+    path: '/Projects',
+    name: 'Projects',
+    component: function () {
+      return import('../views/Projects.vue')
+    }
+  },
+  {
     path: '/HomeAdmin',
     name: 'HomeAdmin',
     component: function () {
