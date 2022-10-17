@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CarnetConfig(AppConfig):
+class CitaConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Carnet'
+    name = 'APP.Medical_appointment'

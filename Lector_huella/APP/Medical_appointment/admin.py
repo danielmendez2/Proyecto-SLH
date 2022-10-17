@@ -1,5 +1,5 @@
 from django.contrib import admin
-from APP.cita.models import Cita
+from APP.Medical_appointment.models import Cita
 # Register your models here.
 
 

@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'APP.Person',
     'APP.clinic_history',
     'APP.Patient',
-    'APP.cita',
+    'APP.Medical_appointment',
     'APP.user',
     "corsheaders",
     'rest_framework',

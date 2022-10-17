@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 from APP.Nurse.models import enfermera
-from APP.Medico.models import medico
+from APP.Doctor.models import medico
 from APP.Patient.models import Paciente
 
 
