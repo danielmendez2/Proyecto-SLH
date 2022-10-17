@@ -7,7 +7,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('Medico', '0002_remove_medico_profesion'),
-        ('Persona', '0002_profesion_alter_persona_options'),
+        ('Person', '0002_profesion_alter_persona_options'),
     ]
 
     operations = [

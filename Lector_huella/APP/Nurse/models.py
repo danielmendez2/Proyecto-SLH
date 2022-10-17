@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 from django.core.exceptions import ValidationError
-from APP.Persona.models import persona
+from APP.Person.models import persona
 
 
 class enfermera(models.Model):
@@ -13,4 +13,4 @@ class enfermera(models.Model):
     def __str__(self):
         return self.datos.Name
     class Meta:
-        verbose_name = 'Enfermera'
+        verbose_name = 'Nurse'

@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('Persona', '0002_profesion_alter_persona_options'),
+        ('Person', '0002_profesion_alter_persona_options'),
     ]
 
     operations = [
@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('tarjeta_profesional', models.CharField(max_length=30)),
-                ('nombre', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Persona.persona')),
-                ('profesion', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Persona.profesion')),
+                ('nombre', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Person.persona')),
+                ('profesion', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Person.profesion')),
             ],
         ),
     ]

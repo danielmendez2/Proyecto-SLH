@@ -1,5 +1,5 @@
 from django.db import models
-from APP.Persona.models import persona
+from APP.Person.models import persona
 
 
 class medico(models.Model):

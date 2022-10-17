@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from APP.Persona.models import persona
+from APP.Person.models import persona
 
 
 @admin.register(persona)

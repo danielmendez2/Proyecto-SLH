@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('Persona', '0001_initial'),
+        ('Person', '0001_initial'),
     ]
 
     operations = [
@@ -19,10 +19,10 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('Professional_card', models.CharField(max_length=30, unique=True)),
                 ('Specialization', models.CharField(max_length=100)),
-                ('datos', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Persona.persona')),
+                ('datos', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Person.persona')),
             ],
             options={
-                'verbose_name': 'Enfermera',
+                'verbose_name': 'Nurse',
             },
         ),
     ]

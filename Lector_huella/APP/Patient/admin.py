@@ -1,5 +1,5 @@
 from django.contrib import admin
-from APP.Usuario.models import Paciente
+from APP.Patient.models import Paciente
 # Register your models here.
 
 @admin.register(Paciente)
