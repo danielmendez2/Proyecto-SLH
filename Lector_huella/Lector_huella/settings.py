@@ -59,7 +59,7 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
 ]
 CORS_ALLOWED_ORIGINS = [
-    "http://192.168.0.107:8080",
+    "http://192.168.0.107:8000",
 ]
 
 MIDDLEWARE = [
