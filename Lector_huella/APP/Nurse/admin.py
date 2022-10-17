@@ -2,9 +2,9 @@ from django.contrib import admin
 
 # Register your models here.
 
-from APP.Nurse.models import enfermera
+from APP.Nurse.models import Nurses
 
 
-@admin.register(enfermera)
-class enfermeraAdmin(admin.ModelAdmin):
-    list_display = ('datos', 'Professional_card', 'Specialization',)
+@admin.register(Nurses)
+class NursesAdmin(admin.ModelAdmin):
+    list_display = ('data', 'Professional_card', 'Specialization',)

@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 
-class persona(models.Model):
+class People(models.Model):
     Photo = models.ImageField(upload_to='imagenes')
     Name = models.CharField(max_length=50)
     Surname = models.CharField(max_length=50)

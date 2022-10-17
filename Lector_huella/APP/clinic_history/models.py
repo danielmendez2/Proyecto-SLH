@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 
-class historia(models.Model):
+class History(models.Model):
     Name = models.CharField(max_length=50)
     Surname = models.CharField(max_length=50)
     Cc = models.CharField(unique=True, max_length=11,)

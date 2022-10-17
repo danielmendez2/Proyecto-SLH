@@ -1,11 +1,11 @@
 from django.db import models
-from APP.Person.models import persona
+from APP.Person.models import People
 
 
-class medico(models.Model):
-    nombre = models.ForeignKey(persona, on_delete=models.CASCADE)
-    tarjeta_profesional = models.CharField(max_length=30)
-    especializacion = models.CharField(max_length=50)
+class Doctors(models.Model):
+    name = models.ForeignKey(People, on_delete=models.CASCADE)
+    professional_card = models.CharField(max_length=30)
+    specialization = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.nombre.Name
+        return self.name.Name

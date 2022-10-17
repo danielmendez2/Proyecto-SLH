@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 
-class Paciente(models.Model):
+class Patients(models.Model):
     Name = models.CharField(max_length=50)
     Surname = models.CharField(max_length=50)
     age = models.CharField(max_length=3)

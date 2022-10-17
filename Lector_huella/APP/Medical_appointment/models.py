@@ -1,15 +1,15 @@
 from django.db import models
 
 # Create your models here.
-from APP.Nurse.models import enfermera
-from APP.Doctor.models import medico
-from APP.Patient.models import Paciente
+from APP.Nurse.models import Nurses
+from APP.Doctor.models import Doctors
+from APP.Patient.models import Patients
 
 
-class Cita(models.Model):
+class Quotes(models.Model):
     date_and_time = models.DateTimeField()
-    doctors = models.ForeignKey(medico, on_delete=models.CASCADE)
-    patient = models.ForeignKey(Paciente, on_delete=models.CASCADE)
+    doctors = models.ForeignKey(Doctors, on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patients, on_delete=models.CASCADE)
     eps = models.CharField(max_length=50)
     specialty = models.CharField(max_length=50)
 

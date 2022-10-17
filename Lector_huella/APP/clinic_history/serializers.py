@@ -1,11 +1,11 @@
 from rest_framework.serializers import ModelSerializer
 
-from .models import historia
+from .models import History
 
 
 class HistoriaSerializer(ModelSerializer):
     class Meta:
-        model = historia
+        model = History
         fields = (
             'id', 'Name', 'Surname','Cc','Phone','Direction',  'gender','Eps', 'email', 'Occupation', 'hour_entry_finish','Doctor_concept')
 

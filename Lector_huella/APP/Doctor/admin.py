@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from APP.Medico.models import medico
+from APP.Doctor.models import Doctors
 
 
-@admin.register(medico)
-class medicoAdmin(admin.ModelAdmin):
-    list_display = ('nombre',)
+@admin.register(Doctors)
+class DoctorsAdmin(admin.ModelAdmin):
+    list_display = ('name',)

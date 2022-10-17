@@ -6,12 +6,12 @@ from rest_framework import status
 from  rest_framework.views import APIView
 from rest_framework.generics import (ListAPIView)
 from rest_framework.response import Response
-from .models import historia
+from .models import History
 from .serializers import HistoriaSerializer
 
 
 class HistoriaListAPIView(APIView):
 
     def get(self, request,):
-        historias = HistoriaSerializer(historia.objects.all(),many=True)
+        historias = HistoriaSerializer(History.objects.all(),many=True)
         return Response(status=status.HTTP_200_OK,data=historias.data)
