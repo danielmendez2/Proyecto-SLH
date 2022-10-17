@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('Medico', '0001_initial'),
+        ('Doctor', '0001_initial'),
         ('Patient', '0001_initial'),
     ]
 
@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('date_and_time', models.DateTimeField()),
                 ('eps', models.CharField(max_length=50)),
                 ('specialty', models.CharField(max_length=50)),
-                ('doctors', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Medico.medico')),
+                ('doctors', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Doctor.medico')),
                 ('patient', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Patient.paciente')),
             ],
         ),
