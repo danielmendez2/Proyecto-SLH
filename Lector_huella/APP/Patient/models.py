@@ -13,7 +13,7 @@ class Patients(models.Model):
     gender = models.CharField(max_length=4)
     Eps = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
-    date_of_birth = models.DateTimeField()
+    date_of_birth = models.DateField()
 
     def __str__(self):
         return self.Name
