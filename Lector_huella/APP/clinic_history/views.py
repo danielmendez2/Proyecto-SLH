@@ -15,3 +15,10 @@ class HistoriaListAPIView(APIView):
     def get(self, request,):
         historias = HistoriaSerializer(History.objects.all(),many=True)
         return Response(status=status.HTTP_200_OK,data=historias.data)
+
+    def post(self, request, ):
+        Historias = HistoriaSerializer(data=request.POST)
+        Historias.is_valid(raise_exception=True)
+        Historias.save()
+
+        return Response(status=status.HTTP_200_OK, data=Historias.data)
