@@ -5,6 +5,5 @@ from APP.clinic_history.models import History
 
 @admin.register(History)
 class HistoryAdmin(admin.ModelAdmin):
-    list_display = ('Name', 'Surname', 'Rh','Cc', 'Phone','gender', 'Direction',)
-    list_editable = ('Phone','gender',)
-    search_fields = ('Name', 'Cc',)
+    list_display = ('Name', 'Occupation', 'hour_entry_finish')
+    search_fields = ('Name',)

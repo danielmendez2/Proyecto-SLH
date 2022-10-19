@@ -4,16 +4,16 @@ from django.db import models
 
 
 class Patients(models.Model):
-    Name = models.CharField(max_length=50)
-    Surname = models.CharField(max_length=50)
-    age = models.CharField(max_length=3)
-    Cc = models.CharField(unique=True, max_length=11, )
-    Phone = models.CharField(max_length=13)
-    Direction = models.CharField(max_length=50)
-    gender = models.CharField(max_length=4)
-    Eps = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100)
-    date_of_birth = models.DateField()
+    Name = models.CharField(max_length=50, verbose_name='Nombre')
+    Surname = models.CharField(max_length=50, verbose_name='Apellidos')
+    age = models.CharField(max_length=3, verbose_name='Edad')
+    Cc = models.CharField(unique=True, max_length=11, verbose_name='Cedula')
+    Phone = models.CharField(max_length=13, verbose_name='Telefono')
+    Direction = models.CharField(max_length=50, verbose_name='Direccion')
+    gender = models.CharField(max_length=4, verbose_name='Genero')
+    Eps = models.CharField(max_length=100, verbose_name='Eps')
+    email = models.EmailField(max_length=100, verbose_name='Correo')
+    date_of_birth = models.DateField(null=True, blank=True, verbose_name='Fecha de cumpleaños')
 
     def __str__(self):
         return self.Name
