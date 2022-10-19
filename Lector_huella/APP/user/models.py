@@ -51,6 +51,7 @@ class CustomUserManager(BaseUserManager):
         '''
         return self.first_name
 
+
 class User (AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=50, blank=True,null=True)
     date_joined = models.DateTimeField(auto_now_add=True)

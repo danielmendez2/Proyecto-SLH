@@ -14,3 +14,10 @@ class UserListAPIView(APIView):
     def get(self, request,):
         Users= UserSerializer(User.objects.all(),many=True)
         return Response(status=status.HTTP_200_OK,data=Users.data)
+
+    def post (self, request,):
+        users = UserSerializer(data=request.POST)
+        users.is_valid(raise_exception=True)
+        users.save()
+
+        return Response(status=status.HTTP_200_OK, data=users.data)
