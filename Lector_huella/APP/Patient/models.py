@@ -10,7 +10,12 @@ class Patients(models.Model):
     Cc = models.CharField(unique=True, max_length=11, verbose_name='Cedula')
     Phone = models.CharField(max_length=13, verbose_name='Telefono')
     Direction = models.CharField(max_length=50, verbose_name='Direccion')
-    gender = models.CharField(max_length=4, verbose_name='Genero')
+    genders = [
+        ('F', 'FEMENINO'),
+        ('M', 'MASCULINO'),
+        ('O', 'OTRO')
+    ]
+    gender = models.CharField(max_length=1, choices = genders, verbose_name='Genero')
     Eps = models.CharField(max_length=100, verbose_name='Eps')
     email = models.EmailField(max_length=100, verbose_name='Correo')
     date_of_birth = models.DateField(null=True, blank=True, verbose_name='Fecha de cumpleaños')

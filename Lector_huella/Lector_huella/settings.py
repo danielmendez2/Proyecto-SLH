@@ -62,6 +62,8 @@ CORS_ALLOW_HEADERS = [
 ]
 CORS_ALLOWED_ORIGINS = [
     "http://192.168.0.117:8080",
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
 ]
 
 MIDDLEWARE = [
