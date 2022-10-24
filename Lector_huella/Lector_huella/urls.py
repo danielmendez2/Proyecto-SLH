@@ -18,10 +18,12 @@ from django.urls import path, include
 from APP.clinic_history.views import HistoriaListAPIView
 from APP.user.views import UserListAPIView
 from APP.Patient.router import router_patients
+from APP.Doctor.routers import router_doctors
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/historia/lista', HistoriaListAPIView.as_view(), name='historia'),
     path('api/user/lista', UserListAPIView.as_view(), name='user'),
     path('api/Patients/list', include(router_patients.urls)),
+    path('api/Doctors/list',include(router_doctors.urls)),
 ]

@@ -7,4 +7,6 @@ from APP.Nurse.models import Nurses
 
 @admin.register(Nurses)
 class NursesAdmin(admin.ModelAdmin):
-    list_display = ('data', 'Professional_card', 'Specialization',)
+    list_display = ('Name', 'Surname', 'Cc','Phone', 'Direction', 'gender', 'email','Professional_card')
+    list_filter = ('Name', 'Cc')
+    list_editable = ('Phone', 'Direction', 'email')
