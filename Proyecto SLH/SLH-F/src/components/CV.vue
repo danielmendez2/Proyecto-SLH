@@ -40,7 +40,7 @@
 
                     <v-col cols="12" md="6" lg="3">
                       <v-text-field
-                        label="Numero  de documento"
+                        label="Número  de documento"
                         class="purple-input"
                       />
                     </v-col>

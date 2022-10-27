@@ -20,7 +20,7 @@
           cols="12"
           md="4"
           lg="3"
-          label="Consultar por numero ID"
+          label="Consultar por número ID"
           class="purple-input"
         />
         <template>
