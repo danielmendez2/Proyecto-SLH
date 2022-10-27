@@ -15,15 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from APP.clinic_history.views import HistoriaListAPIView
+from APP.clinic_history.views import HistoryViewSet
 from APP.user.views import UserListAPIView
 from APP.Patient.router import router_patients
 from APP.Doctor.routers import router_doctors
+from APP.clinic_history.router import router_history
+from APP.License.router import router_vaccines, router_growth
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/historia/lista', HistoriaListAPIView.as_view(), name='historia'),
+    #path('api/historia/lista', HistoriaListAPIView.as_view(), name='historia'),
     path('api/user/lista', UserListAPIView.as_view(), name='user'),
     path('api/Patients/list', include(router_patients.urls)),
     path('api/Doctors/list',include(router_doctors.urls)),
+    path('api/history/list',include(router_history.urls)),
+    path('api/Vaccines/list',include(router_vaccines.urls)),
+    path('api/Growth/list', include(router_growth.urls)),
+
 ]

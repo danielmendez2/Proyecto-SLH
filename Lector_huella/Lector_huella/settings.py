@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'APP.Patient',
     'APP.Medical_appointment',
     'APP.user',
+    'APP.License',
     "corsheaders",
     'rest_framework',
 ]

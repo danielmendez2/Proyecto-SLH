@@ -4,6 +4,7 @@ from django.db import models
 
 
 class Patients(models.Model):
+
     Name = models.CharField(max_length=50, verbose_name='Nombre')
     Surname = models.CharField(max_length=50, verbose_name='Apellidos')
     age = models.CharField(max_length=3, verbose_name='Edad')
@@ -34,4 +35,4 @@ class Patients(models.Model):
     date_of_birth = models.DateField(null=True, blank=True, verbose_name='Fecha de cumpleaños')
 
     def __str__(self):
-        return self.Name
+        return self.Cc

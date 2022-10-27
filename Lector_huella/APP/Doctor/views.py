@@ -10,7 +10,7 @@ from APP.Doctor.serializer import DoctorsSerializer
 
 
 class DoctorsViewSet(ViewSet):
-    def list(self, request):
+    def list(self, request, *args, **kwargs):
         doctors = DoctorsSerializer(Doctors.objects.all(), many=True)
         return Response(status=status.HTTP_200_OK, data=doctors.data)
 
