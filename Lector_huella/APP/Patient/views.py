@@ -18,7 +18,7 @@ class PatientsViewSet(ViewSet):
         return Response(status=status.HTTP_200_OK, data=patient.data)
 
     def create(self, request):
-        patient = PatientsSerializer(data=request.POST)
+        patient = PatientsSerializer(data=request.data)
         patient.is_valid(raise_exception=True)
         patient.save()
         return Response(status=status.HTTP_200_OK, data=patient.data)

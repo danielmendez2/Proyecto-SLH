@@ -6,7 +6,7 @@ from .models import Vaccines, Growth_and_development
 class VaccinesSerializer(ModelSerializer):
     class Meta:
         model = Vaccines
-        fields = ('date_joined',
+        fields = (
                   'Data',
                   'Biological',
                   'Dose',
@@ -21,7 +21,7 @@ class Growth_and_developmentSerializer(ModelSerializer):
     class Meta:
         model = Growth_and_development
         fields = (
-            'Date_joined',
+
             'Data',
             'Weight',
             'stature',

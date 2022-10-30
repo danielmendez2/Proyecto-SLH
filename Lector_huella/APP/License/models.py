@@ -7,7 +7,7 @@ from APP.Doctor.models import Doctors
 
 class Vaccines(models.Model):
     date_joined = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de creacion')
-    Data = models.ForeignKey(Patients, on_delete=models.CASCADE, verbose_name='Datos del paciente',
+    name_patient = models.ForeignKey(Patients, on_delete=models.CASCADE, verbose_name='Datos del paciente',
                              blank=True, null=True)
     Biological = models.CharField(max_length=50, verbose_name='Biologico', null=True, blank=True)
     Dose = models.CharField(max_length=60, verbose_name='Dosis', null=True, blank=True)
@@ -35,7 +35,7 @@ class Vaccines(models.Model):
 
 class Growth_and_development(models.Model):
     Date_joined = models.DateTimeField(auto_now_add=True)
-    Data = models.ForeignKey(Patients, on_delete=models.CASCADE, null=True, blank=True,
+    name_patients = models.ForeignKey(Patients, on_delete=models.CASCADE, null=True, blank=True,
                              verbose_name='Datos del paciente')
     Weight = models.CharField(max_length=3, null=True, blank=True, verbose_name='Peso')
     stature = models.CharField(max_length=3, verbose_name='Estatura', null=True, blank=True)

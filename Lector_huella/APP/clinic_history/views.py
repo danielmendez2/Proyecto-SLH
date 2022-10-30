@@ -23,7 +23,7 @@ class HistoryViewSet(ViewSet):
         return Response(status=status.HTTP_200_OK, data=doctors.data)
 
     def create(self, request, *args, **kwargs):
-        doctors = HistoriaSerializer(data=request.POST)
+        doctors = HistoriaSerializer(data=request.data)
         doctors.is_valid(raise_exception=True)
         doctors.save()
         return Response(status=status.HTTP_200_OK, data=doctors.data)
