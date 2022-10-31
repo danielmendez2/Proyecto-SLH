@@ -2,165 +2,163 @@
   <div>
     <div>
       <div>
-        <h1>Carnet vacunación</h1>
+        <h1>Carnet vacunas</h1>
         <div cols="12" md="4" lg="3">
-          <v-btn color="success" @click="vacuna.estado = true" dark large>
-            Crear Carnet vacunas
-          </v-btn>
+          <v-btn color="success" @click="vacuna.estado = true" dark large> Crear carnet de vacunas </v-btn>
         </div>
       </div>
       <div>
         <!-- <div>
-            <div cols="12" md="4" lg="3">
-              <v-btn color="success" dark large> Consultar por numero ID </v-btn>
-            </div>
-          </div> -->
+          <div cols="12" md="4" lg="3">
+            <v-btn color="success" dark large> Consultar por numero ID </v-btn>
+          </div>
+        </div> -->
 
-        <v-text-field
-          cols="12"
-          md="4"
-          lg="3"
-          label="Consultar por número ID"
-          class="purple-input"
-        />
+        <v-text-field cols="12" md="4" lg="3" v-model="search" label="Consultar por número ID" class="purple-input" />
         <template>
-          <v-data-table
-            
-            :items-per-page="5"
-            class="elevation-1"
-          ></v-data-table>
+          <v-data-table :search="search" :headers="headers" :items="vacuas" item-key="id" :items-per-page="5" class="elevation-1"></v-data-table>
         </template>
       </div>
     </div>
-    <VACUNAS :vacuna="vacuna"></VACUNAS>
+    <VACUNA :vacuna="vacuna"></VACUNA>
   </div>
 </template>
 <script>
-import popapVacunas from "../components/CV.vue";
-
+import popapVacuna from "../components/CV.vue";
+import axios from "axios";
+import { Global } from "../global";
+import { mapActions } from "vuex";
 export default {
   components: {
-    VACUNAS: popapVacunas,
+    VACUNA: popapVacuna,
   },
   data: () => ({
+    search: "",
+    headers: [
+      {
+        text: "ID",
+        align: "center",
+        sortable: false,
+        value: "id",
+      },
+      {
+        text: "Biologico",
+        align: "center",
+        sortable: false,
+        value: "Biological",
+      },
+      {
+        text: "Dosis",
+        align: "center",
+        sortable: false,
+        value: "Dose",
+      },
+      {
+        text: "Fecha vacunacion",
+        align: "center",
+        sortable: false,
+        value: "Vaccine_date",
+      },
+      {
+        text: "Fabricante",
+        align: "center",
+        sortable: false,
+        value: "Factory",
+      },
+      {
+        text: "Lote",
+        align: "center",
+        sortable: false,
+        value: "Lot",
+      },
+      {
+        text: "Eps",
+        align: "center",
+        sortable: false,
+        value: "Eps",
+      },
+      {
+        text: "Dosis",
+        align: "center",
+        sortable: false,
+        value: "reason_for_consultation",
+      },
+      {
+        text: "Fecha vacuna",
+        align: "center",
+        sortable: false,
+        value: "hour_entry_finish",
+      },
+      {
+        text: "Fabricante",
+        align: "center",
+        sortable: false,
+        value: "Doctor_concept",
+      },
+      {
+        text: "Lote",
+        align: "center",
+        sortable: false,
+        value: "reason_for_consultation",
+      },
+      {
+        text: "IPS vacunadora",
+        align: "center",
+        sortable: false,
+        value: "Doctor_concept",
+      },
+      {
+        text: "Nombre vacunador",
+        align: "center",
+        sortable: false,
+        value: "reason_for_consultation",
+      },
+      {
+        text: "Cédula vacunador",
+        align: "center",
+        sortable: false,
+        value: "hour_entry_finish",
+      },
+    ],
+
     vacuna: {
       estado: false,
-
-      // headers: [
-      //   {
-      //     text: "Nombres",
-      //     align: "start",
-      //     sortable: false,
-      //     value: "nombres",
-      //   },
-      //   { text: "Apellidos", value: "apellidos" },
-      //   { text: "Tipo ID", value: "tipo_id" },
-      //   { text: "Numero ID", value: "numero_id" },
-      //   { text: "Fecha nacimiento", value: "fecha_nacimiento" },
-      //   { text: "Biológico", value: "biologico" },
-      //   { text: "Dosis", value: "dosis" },
-      //   { text: "Fecha vacuna", value: "fecha_vacuna" },
-      //   { text: "Fabricante", value: "fabricante" },
-      //   { text: "Lote", value: "lote" },
-      //   { text: "IPS vacuna", value: "ips_vacuna" },
-      //   { text: "Nombre vacunador", value: "nombre_vacunador" },
-      //   { text: "Cedula vacunador", value: "cedula_vacunador" },
-      // ],
-      // registros: [
-      //   {
-      //     nombres: "daniel",
-      //     apellidos: "mendez",
-      //     tipo_id: "cc",
-      //     numero_id: "100680995",
-      //     fecha_nacimiento: "20/09/2000",
-      //     biologico: "covid-19",
-      //     dosis: "1",
-      //     fecha_vacuna: "03/01/2022",
-      //     fabricante: "moderna",
-      //     lote: "005h21a",
-      //     ips_vacuna: "c-a restrepo",
-      //     nombre_vacunador: "jennifer vera",
-      //     cedula_vacunador: "101903578",
-      //   },
-      //   {
-      //     nombres: "",
-      //     apellidos: "",
-      //     tipo_id: "",
-      //     numero_id: "",
-      //     fecha_nacimiento: "",
-      //     biologico: "",
-      //     dosis: "",
-      //     fecha_vacuna: "",
-      //     fabricante: "",
-      //     lote: "",
-      //     ips_vacuna: "",
-      //     nombre_vacunador: "",
-      //     cedula_vacunador: "",
-      //   },
-      //   {
-      //     nombres: "",
-      //     apellidos: "",
-      //     tipo_id: "",
-      //     numero_id: "",
-      //     fecha_nacimiento: "",
-      //     biologico: "",
-      //     dosis: "",
-      //     fecha_vacuna: "",
-      //     fabricante: "",
-      //     lote: "",
-      //     ips_vacuna: "",
-      //     nombre_vacunador: "",
-      //     cedula_vacunador: "",
-      //   },
-      //   {
-      //     nombres: "",
-      //     apellidos: "",
-      //     tipo_id: "",
-      //     numero_id: "",
-      //     fecha_nacimiento: "",
-      //     biologico: "",
-      //     dosis: "",
-      //     fecha_vacuna: "",
-      //     fabricante: "",
-      //     lote: "",
-      //     ips_vacuna: "",
-      //     nombre_vacunador: "",
-      //     cedula_vacunador: "",
-      //   },
-      //   {
-      //     nombres: "",
-      //     apellidos: "",
-      //     tipo_id: "",
-      //     numero_id: "",
-      //     fecha_nacimiento: "",
-      //     biologico: "",
-      //     dosis: "",
-      //     fecha_vacuna: "",
-      //     fabricante: "",
-      //     lote: "",
-      //     ips_vacuna: "",
-      //     nombre_vacunador: "",
-      //     cedula_vacunador: "",
-      //   },
-
-      //   {
-      //     nombres: "",
-      //     apellidos: "",
-      //     tipo_id: "",
-      //     numero_id: "",
-      //     fecha_nacimiento: "",
-      //     biologico: "",
-      //     dosis: "",
-      //     fecha_vacuna: "",
-      //     fabricante: "",
-      //     lote: "",
-      //     ips_vacuna: "",
-      //     nombre_vacunador: "",
-      //     cedula_vacunador: "",
-      //   },
-      // ],
     },
+    vacuas: [],
   }),
+
+  async mounted() {
+    this.vacuas = await this.getVacunas();
+    console.log("array vacunas",this.vacuas)
+    this.getServicios();
+  },
+  methods: {
+    ...mapActions({
+      getVacunas: "vacunas_api/getVacunas",
+      //getHistoria: "historia_clinica/getHistoria",
+    }),
+    async obtenerCarnetVacuna() {
+      const id = this.search;
+      let res = await this.getVacunas({ id });
+    },
+
+    getServicios() {
+      let config = {
+        // Headers:{
+        //   'token': Global.token
+        // }
+      };
+      axios.get(Global.url + "/api/Vaccines/listvaccines/").then((res) => {
+        console.log("estoy en metodo get vacunas", res.status);
+        if (res.status == 200) {
+          this.carnet_vacu = res.data;
+          console.log((this.carnet_vacu.id = "1"));
+        } else {
+          alert("no se pudo conectar");
+        }
+      });
+    },
+  },
 };
 </script>
 <style scoped>
