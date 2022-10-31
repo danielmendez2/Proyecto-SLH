@@ -21,6 +21,9 @@ class VaccinesViewSet(ViewSet):
         vaccines.save()
         return Response(status=status.HTTP_200_OK, data=vaccines.data)
 
+    def update(self,request):
+        vaccines = VaccinesSerializer(Vaccines.objects.update(), many=True)
+        return Response(status=status.HTTP_200_OK, data=vaccines.data)
 
 class Growth_and_developmentViewSet(ViewSet):
     def list(self, request):
@@ -35,4 +38,8 @@ class Growth_and_developmentViewSet(ViewSet):
         growth = Growth_and_developmentSerializer(data=request.data)
         growth.is_valid(raise_exception=True)
         growth.save()
+        return Response(status=status.HTTP_200_OK, data=growth.data)
+
+    def update(self,request):
+        growth = Growth_and_developmentSerializer(Growth_and_development.objects.update(), many=True)
         return Response(status=status.HTTP_200_OK, data=growth.data)

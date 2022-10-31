@@ -22,3 +22,8 @@ class PatientsViewSet(ViewSet):
         patient.is_valid(raise_exception=True)
         patient.save()
         return Response(status=status.HTTP_200_OK, data=patient.data)
+
+    def update(self, request):
+        patient = PatientsSerializer(Patients.objects.update(), many=True)
+        return Response(status=status.HTTP_200_OK, data=patient.data)
+        

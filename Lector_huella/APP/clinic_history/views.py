@@ -14,19 +14,24 @@ from .serializers import HistoriaSerializer
 
 
 class HistoryViewSet(ViewSet):
-    def list(self, request, *args, **kwargs):
-        doctors = HistoriaSerializer(History.objects.all(), many=True)
-        return Response(status=status.HTTP_200_OK, data=doctors.data)
+    def list(self, request):
+        history = HistoriaSerializer(History.objects.all(), many=True)
+        return Response(status=status.HTTP_200_OK, data=history.data)
 
     def retrive(self, request, pk: int):
-        doctors = HistoriaSerializer(History.objects.get(pk=pk))
-        return Response(status=status.HTTP_200_OK, data=doctors.data)
+        history = HistoriaSerializer(History.objects.get(pk=pk))
+        return Response(status=status.HTTP_200_OK, data=history.data)
 
-    def create(self, request, *args, **kwargs):
-        doctors = HistoriaSerializer(data=request.data)
-        doctors.is_valid(raise_exception=True)
-        doctors.save()
-        return Response(status=status.HTTP_200_OK, data=doctors.data)
+    def create(self, request):
+        history = HistoriaSerializer(data=request.data)
+        history.is_valid(raise_exception=True)
+        history.save()
+        return Response(status=status.HTTP_200_OK, data=history.data)
+
+    def update(self,request):
+        history = HistoriaSerializer(History.objects.update(),many=True)
+        return Response(status=status.HTTP_200_OK, data=history.data)
+
 
 
 

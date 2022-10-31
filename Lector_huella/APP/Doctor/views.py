@@ -24,3 +24,6 @@ class DoctorsViewSet(ViewSet):
         doctors.save()
         return Response(status=status.HTTP_200_OK, data=doctors.data)
 
+    def update(self, request):
+        doctors = DoctorsSerializer(Doctors.objects.update(),many=True)
+        return Response(status=status.HTTP_200_OK, data=doctors.data)
