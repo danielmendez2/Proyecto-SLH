@@ -14,20 +14,7 @@ class Vaccines(models.Model):
     Vaccine_date = models.DateField(verbose_name='Fecha de la vacuna', null=True, blank=True)
     Factory = models.CharField(verbose_name='Fabricante', null=True, blank=True, max_length=50)
     Lot = models.CharField(max_length=50, null=True, blank=True, verbose_name='Lote')
-    EPSS=[
-        ('S', 'SANITAS'),
-        ('N', 'NUEVA EPS'),
-        ('F', 'FAMISANAR'),
-        ('CP', 'CAPITAL SALUD'),
-        ('A', 'ALIANSALUD'),
-        ('C', 'COMPENSAR'),
-        ('CO', 'COMMEVAEPS'),
-        ('SA', 'SALUD TOTAL'),
-        ('SU', 'SURA'),
-        ('SO', 'SOS'),
-        ('FU', 'FUNDACION SALUD MIA'),
-    ]
-    Eps = models.CharField(max_length=100, choices=EPSS, verbose_name='Ips vacunadora',
+    Eps = models.CharField(max_length=100, verbose_name='Ips vacunadora',
                            blank=True, null=True)
     Vaccinator_name = models.ForeignKey(Nurses, on_delete=models.CASCADE,
                                         verbose_name='Nombre del vacunador')

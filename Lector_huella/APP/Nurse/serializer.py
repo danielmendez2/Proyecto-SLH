@@ -1,14 +1,15 @@
 from dataclasses import fields
 from rest_framework.serializers import ModelSerializer
 from sys import implementation
-from .models import Patients
+from .models import Nurses
 
 
-class PatientsSerializer(ModelSerializer):
+class NursesSerializer(ModelSerializer):
     class Meta:
-        model = Patients
+        model = Nurses
         fields = (
             'id',
+            'Photo',
             'Name',
             'Surname',
             'identification_number',
@@ -17,4 +18,8 @@ class PatientsSerializer(ModelSerializer):
             'gender',
             'Eps',
             'email',
-            'date_of_birth',)
+            'Professional_card',
+            'Specialization',
+            'date_of_birth',
+            'meets_the_profile',
+        )

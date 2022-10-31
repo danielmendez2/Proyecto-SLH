@@ -21,6 +21,7 @@ from APP.Patient.router import router_patients
 from APP.Doctor.routers import router_doctors
 from APP.clinic_history.router import router_history
 from APP.License.router import router_vaccines, router_growth
+from APP.Nurse.router import router_nurse
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,5 +32,5 @@ urlpatterns = [
     path('api/history/list',include(router_history.urls)),
     path('api/Vaccines/list',include(router_vaccines.urls)),
     path('api/Growth/list', include(router_growth.urls)),
-
+    path('api/nurse/list', include(router_nurse.urls)),
 ]

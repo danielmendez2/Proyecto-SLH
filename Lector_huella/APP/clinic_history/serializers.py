@@ -7,7 +7,14 @@ class HistoriaSerializer(ModelSerializer):
     class Meta:
         model = History
         fields = (
-            'id', 'Name', 'Occupation','reason_for_consultation','current_illness', 'hour_entry_finish', 'Doctor_concept')
+            'id',
+            'Name_patients',
+            'Rh',
+            'Occupation',
+            'reason_for_consultation',
+            'current_illness',
+            'hour_entry_finish',
+            'Doctor_concept')
 
 
 

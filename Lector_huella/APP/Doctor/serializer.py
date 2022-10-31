@@ -11,7 +11,7 @@ class DoctorsSerializer(ModelSerializer):
             'Photo',
             'Name',
             'Surname',
-            'Cc',
+            'identification_number',
             'Phone',
             'Direction',
             'gender',

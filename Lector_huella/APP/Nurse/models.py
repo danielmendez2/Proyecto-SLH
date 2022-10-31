@@ -7,7 +7,7 @@ class Nurses(models.Model):
     Photo = models.ImageField(upload_to='imagenes', verbose_name='Foto', null=True, blank=True)
     Name = models.CharField(max_length=50, verbose_name='Nombre', blank=True, null=True)
     Surname = models.CharField(max_length=50, verbose_name='Apellido', blank=True, null=True)
-    Cc = models.CharField(unique=True, max_length=11, null=True, blank=True, verbose_name='Cedula')
+    identification_number = models.CharField(unique=True, max_length=11, null=True, blank=True, verbose_name='Cedula')
     Phone = models.CharField(max_length=13, verbose_name='Telefono', null=True, blank=True)
     Direction = models.CharField(max_length=50, verbose_name='direccion', null=True, blank=True)
     gender = models.CharField(max_length=1, verbose_name='Genero')

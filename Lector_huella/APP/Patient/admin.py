@@ -5,6 +5,6 @@ from APP.Patient.models import Patients
 
 @admin.register(Patients)
 class PatientAdmin(admin.ModelAdmin):
-    list_display = ('Name', 'Surname', 'Cc', 'age', 'Phone', 'gender', 'Direction',)
+    list_display = ('Name', 'Surname', 'identification_number', 'Phone', 'gender', 'Direction',)
     list_editable = ('Phone', 'gender',)
-    search_fields = ('Name', 'Cc',)
+    search_fields = ('Name', 'identification_number',)

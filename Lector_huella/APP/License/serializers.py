@@ -7,7 +7,7 @@ class VaccinesSerializer(ModelSerializer):
     class Meta:
         model = Vaccines
         fields = (
-                  'Data',
+                  'name_patient',
                   'Biological',
                   'Dose',
                   'Vaccine_date',
@@ -22,7 +22,7 @@ class Growth_and_developmentSerializer(ModelSerializer):
         model = Growth_and_development
         fields = (
 
-            'Data',
+            'name_patients',
             'Weight',
             'stature',
             'IMC',

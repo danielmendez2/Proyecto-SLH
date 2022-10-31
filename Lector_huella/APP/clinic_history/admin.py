@@ -5,6 +5,6 @@ from APP.clinic_history.models import History
 
 @admin.register(History)
 class HistoryAdmin(admin.ModelAdmin):
-    list_display = ('Name', 'Occupation', 'hour_entry_finish')
+    list_display = ('Name_patients', 'Occupation', 'hour_entry_finish')
 
 
