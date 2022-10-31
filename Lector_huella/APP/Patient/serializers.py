@@ -11,6 +11,7 @@ class PatientsSerializer(ModelSerializer):
             'id',
             'Name',
             'Surname',
+            'type_identification',
             'identification_number',
             'Phone',
             'Direction',

@@ -12,6 +12,7 @@ class NursesSerializer(ModelSerializer):
             'Photo',
             'Name',
             'Surname',
+            'type_identification',
             'identification_number',
             'Phone',
             'Direction',

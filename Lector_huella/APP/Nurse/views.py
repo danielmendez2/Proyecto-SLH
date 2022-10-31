@@ -22,3 +22,7 @@ class NurseViewSet(ViewSet):
         nurses.is_valid(raise_exception=True)
         nurses.save()
         return Response(status=status.HTTP_200_OK, data=nurses.data)
+
+    def update (self, request):
+        nurses = NursesSerializer(Nurses.objects.update(), many=True)
+        return Response(status=status.HTTP_200_OK, data=nurses.data)

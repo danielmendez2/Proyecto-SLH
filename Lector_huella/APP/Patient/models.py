@@ -6,6 +6,7 @@ from django.db import models
 class Patients(models.Model):
     Name = models.CharField(max_length=50, verbose_name='Nombre')
     Surname = models.CharField(max_length=50, verbose_name='Apellidos')
+    type_identification = models.CharField(max_length=30, null=True, blank=True, verbose_name='tipo de identificacion')
     identification_number = models.CharField(unique=True, max_length=11, verbose_name='Cedula')
     Phone = models.CharField(max_length=13, verbose_name='Telefono')
     Direction = models.CharField(max_length=50, verbose_name='Direccion')
