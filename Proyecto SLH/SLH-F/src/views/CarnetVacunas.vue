@@ -42,7 +42,7 @@ export default {
         value: "id",
       },
       {
-        text: "Biologico",
+        text: "Biológico",
         align: "center",
         sortable: false,
         value: "Biological",
@@ -54,7 +54,7 @@ export default {
         value: "Dose",
       },
       {
-        text: "Fecha vacunacion",
+        text: "Fecha vacunación",
         align: "center",
         sortable: false,
         value: "Vaccine_date",
@@ -77,30 +77,25 @@ export default {
         sortable: false,
         value: "Eps",
       },
-      {
-        text: "Dosis",
-        align: "center",
-        sortable: false,
-        value: "reason_for_consultation",
-      },
-      {
-        text: "Fecha vacuna",
-        align: "center",
-        sortable: false,
-        value: "hour_entry_finish",
-      },
-      {
-        text: "Fabricante",
-        align: "center",
-        sortable: false,
-        value: "Doctor_concept",
-      },
-      {
-        text: "Lote",
-        align: "center",
-        sortable: false,
-        value: "reason_for_consultation",
-      },
+      // {
+      //   text: "Dosis",
+      //   align: "center",
+      //   sortable: false,
+      //   value: "reason_for_consultation",
+      // },
+     
+      // {
+      //   text: "Fabricante",
+      //   align: "center",
+      //   sortable: false,
+      //   value: "Doctor_concept",
+      // },
+      // {
+      //   text: "Lote",
+      //   align: "center",
+      //   sortable: false,
+      //   value: "reason_for_consultation",
+      // },
       {
         text: "IPS vacunadora",
         align: "center",

@@ -4,9 +4,7 @@
       <div>
         <h1>Historias clínicas</h1>
         <div cols="12" md="4" lg="3">
-          <v-btn color="success" @click="historia.estado = true" dark large>
-            Crear Historia clínica
-          </v-btn>
+          <v-btn color="success" @click="historia.estado = true" dark large> Crear Historia clínica </v-btn>
         </div>
       </div>
       <div>
@@ -16,25 +14,11 @@
           </div>
         </div> -->
 
-        <v-text-field
-          cols="12"
-          md="4"
-          lg="3"
-          v-model="search"
-          label="Consultar"
-          class="purple-input"
-        />
+        <v-text-field cols="12" md="4" lg="3" v-model="search" label="Consultar por número ID" class="purple-input" />
 
         <!-- :items="registros" -->
         <template>
-          <v-data-table
-            :search="search"
-            :headers="headers"
-            :items="historias"
-            item-key="id"
-            :items-per-page="5"
-            class="elevation-1"
-          ></v-data-table>
+          <v-data-table :search="search" :headers="headers" :items="historias" item-key="id" :items-per-page="5" class="elevation-1"></v-data-table>
         </template>
       </div>
     </div>
@@ -59,6 +43,12 @@ export default {
         sortable: false,
         value: "id",
       },
+      // {
+      //   text: "--Name--",
+      //   align: "center",
+      //   sortable: false,
+      //   value: "Name",
+      // },
       {
         text: "Ocupación",
         align: "center",
@@ -70,6 +60,12 @@ export default {
         align: "center",
         sortable: false,
         value: "reason_for_consultation",
+      },
+      {
+        text: "Enfermedad actual",
+        align: "center",
+        sortable: false,
+        value: "current_illness",
       },
       {
         text: "Fecha-hora entrada",
@@ -92,17 +88,17 @@ export default {
 
   async mounted() {
     this.historias = await this.getHistorias();
+    console.log("array historias",this.historias)
     this.getServicios();
   },
   methods: {
     ...mapActions({
       getHistorias: "historia_clinica/getHistorias",
-      getHistoria: "historia_clinica/getHistoria",
+      //getHistoria: "historia_clinica/getHistoria",
     }),
     async obtenerHistoria() {
       const id = this.search;
       let res = await this.getHistoria({ id });
-       
     },
 
     getServicios() {
@@ -111,8 +107,8 @@ export default {
         //   'token': Global.token
         // }
       };
-      axios.get(Global.url + "/api/historia/lista").then((res) => {
-        console.log(res.status);
+      axios.get(Global.url + "/api/history/listhistory/").then((res) => {
+        console.log("estoy en metodo get", res.status);
         if (res.status == 200) {
           this.historia_cli = res.data;
           console.log((this.historia_cli.id = "1"));

@@ -2,7 +2,7 @@
     <v-dialog v-model="cita.estado" persistent>
       <v-card>
         <v-container id="user-profile" fluid tag="section">
-          <h1>Crear cita medica</h1>
+          <h1>Crear cita médica</h1>
           <v-row justify="center">
             <v-col cols="12" md="12">
               <base-material-card>
