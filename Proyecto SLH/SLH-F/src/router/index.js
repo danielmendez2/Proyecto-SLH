@@ -10,10 +10,10 @@ const routes = [
     redirec: '/',
   },
   {
-    path: '/',
-    name: 'home',
+    path: '/dashboard',
+    name: 'dashboard',
     component: function () {
-      return import('../views/HomeView.vue')
+      return import('../views/Dashboard.vue')
     }
   },
   {
@@ -23,18 +23,40 @@ const routes = [
       return import('../views/Login.vue')
     }
   },
+
   {
-    path: '/Team',
-    name: 'Team',
+    path: '/paciente',
+    name: 'paciente',
     component: function () {
-      return import('../views/Team.vue')
+      return import('../views/Pacientes.vue')
     }
   },
   {
-    path: '/Projects',
-    name: 'Projects',
+    path: '/HistoriaClinica',
+    name: 'HistoriaClinica',
     component: function () {
-      return import('../views/Projects.vue')
+      return import('../views/HistoriaClinica.vue')
+    }
+  },
+  {
+    path: '/carnetVacunas',
+    name: 'carnetVacunas',
+    component: function () {
+      return import('../views/CarnetVacunas.vue')
+    }
+  },
+  {
+    path: '/crecimientoDesarrollo',
+    name: 'crecimientoDesarrollo',
+    component: function () {
+      return import('../views/CrecimientoDesarrollo.vue')
+    }
+  },
+  {
+    path: '/cita',
+    name: 'cita',
+    component: function () {
+      return import('../views/Citas.vue')
     }
   },
   {
