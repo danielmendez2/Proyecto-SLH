@@ -14,11 +14,11 @@
             </div>
           </div> -->
 
-        <v-text-field cols="12" md="4" lg="3" v-model="search" label="Consultar por numero ID" class="purple-input" />
+        <v-text-field cols="12" md="4" lg="3" v-model="search" label="Consultar por número ID" class="purple-input" />
 
         <!-- :items="registros" -->
         <template>
-          <v-data-table :search="search" :headers="headers" :items="pacientes"  item-key="id" :items-per-page="5"  class="elevation-1"></v-data-table>
+          <v-data-table :search="search" :headers="headers" :items="pacientes" item-key="id" :items-per-page="5" class="elevation-1"></v-data-table>
         </template>
       </div>
     </div>
@@ -57,19 +57,19 @@ export default {
         value: "Surname",
       },
       {
-        text: "Edad",
+        text: "Tipo doc.",
         align: "center",
         sortable: false,
-        value: "age",
+        value: "type_identification",
       },
       {
-        text: "Numero doc.",
+        text: "Número doc.",
         align: "center",
         sortable: false,
-        value: "Cc",
+        value: "identification_number",
       },
       {
-        text: "Numero celular",
+        text: "Número celular",
         align: "center",
         sortable: false,
         value: "Phone",
@@ -81,7 +81,7 @@ export default {
         value: "Direction",
       },
       {
-        text: "Genero",
+        text: "Género",
         align: "center",
         sortable: false,
         value: "gender",
@@ -112,7 +112,7 @@ export default {
   }),
   async mounted() {
     this.pacientes = await this.getPacientes();
-    console.log("array pacientes",this.pacientes)
+    console.log("array pacientes", this.pacientes);
     this.getServicios();
   },
   methods: {

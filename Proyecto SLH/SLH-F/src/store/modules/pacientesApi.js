@@ -39,7 +39,7 @@ export default {
       try {
         const respuesta = await http({
           url: `Patients/listpatients/`,
-          // header: {},
+          header: {},
           data,
           method: "POST",
         });

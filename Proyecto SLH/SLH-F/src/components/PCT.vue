@@ -18,12 +18,12 @@
 
                     <v-col cols="12" md="6" lg="3">
                       <v-select
-                        v-model="paciente.tipo_id"
+                        v-model="paciente.type_identification"
                         :items="[
-                          '(CC) Cedula de ciudada',
-                          '(CE) Cedula de extranjeria',
-                          '(NIP) Numero de indentificacion personal',
-                          '(NIT) Numero de identificacion tributaria',
+                          '(CC) Cédula de ciudadanía',
+                          '(CE) Cédula de extranjeria',
+                          '(NIP) Número de indentificación personal',
+                          '(NIT) Número de identificación tributaria',
                           '(NIT) Tarjeta de identidad',
                           '(PAP) Pasaporte',
                         ]"
@@ -38,19 +38,33 @@
                     </v-col>
 
                     <v-col cols="12" md="6" lg="3">
-                      <v-text-field v-model="paciente.numero_id" type="number" label="Número  de documento" class="purple-input" />
+                      <v-text-field v-model="paciente.identification_number" type="number" label="Número  de documento" class="purple-input" />
                     </v-col>
 
+                    <v-col cols="12" md="6" lg="3">
+                      <v-text-field v-model="paciente.date_of_birth" type="date" label="Fecha de nacimiento" class="purple-input" />
+                    </v-col>
+
+                    <v-col cols="12" md="4" lg="2">
+                      <v-select v-model="paciente.gender" :items="['Femenino', 'Masculino', 'Otros']" label="Género">
+                        <template v-slot:item="{ item, attrs, on }">
+                          <v-list-item v-bind="attrs" v-on="on">
+                            <v-list-item-title :id="attrs['aria-labelledby']" v-text="item"></v-list-item-title>
+                          </v-list-item>
+                        </template>
+                      </v-select>
+                    </v-col>
                     <v-col cols="12" md="4" lg="3">
-                      <v-text-field v-model.number="paciente.Phone" v-mask="'+57 (###) ####-###'" label="Número telefono" class="purple-input" />
+                      <v-text-field v-model="paciente.Phone" v-mask="'+57 (###) ####-###'" label="Número celular" class="purple-input" />
                     </v-col>
 
                     <v-col cols="12" md="4" lg="3">
                       <v-text-field v-model="paciente.Direction" label="Dirección" class="purple-input" />
                     </v-col>
 
+                  
                     <v-col cols="12" md="4" lg="2">
-                      <v-select v-model="paciente.genero" :items="['Femenino', 'Masculino', 'Otros']" label="Género">
+                      <v-select v-model="paciente.Eps" :items="['SANITAS', 'NUEVA EPS', 'FAMISANAR', 'CAPITAL SALUD', 'ALIANSALUD', 'COMPENSAR', 'COMMEVAEPS', 'SALUD TOTAL', 'SURA', 'SOS', 'FUNDACION SALUD MIA']" label="EPS">
                         <template v-slot:item="{ item, attrs, on }">
                           <v-list-item v-bind="attrs" v-on="on">
                             <v-list-item-title :id="attrs['aria-labelledby']" v-text="item"></v-list-item-title>
@@ -59,12 +73,8 @@
                       </v-select>
                     </v-col>
 
-                    <v-col cols="12" md="4">
-                      <v-text-field class="purple-input" v-model="paciente.eps" label="EPS" />
-                    </v-col>
-
                     <v-col cols="12" md="4" lg="3">
-                      <v-text-field class="purple-input" label="Correo electronico" v-model="paciente.correo" />
+                      <v-text-field class="purple-input" label="Correo electrónico" v-model="paciente.email" />
                     </v-col>
 
                     <div class="text-xs-right">
@@ -99,11 +109,14 @@ export default {
 
   data() {
     return {
+      date: "2018-03-02",
+
       // submited: false,
       paciente: {
         Name: "",
         Surname: "",
-        Cc: "",
+        type_identification: "",
+        identification_number: "",
         Phone: "",
         Direction: "",
         gender: "",
@@ -111,11 +124,12 @@ export default {
         email: "",
         date_of_birth: "",
       },
-      servicios: [],
+      //servicios: [],
     };
   },
 
   methods: {
+    allowedDates: (val) => parseInt(val.split("-")[2], 10) % 2 === 0,
     ...mapActions({
       crearPaciente: "paciente/crearPaciente",
     }),
@@ -136,26 +150,26 @@ export default {
     procesar() {
       // this.submited = true;
       // this.$v.$touch();
-      if (this.$v.$invalid) {
-        alert("Llenar todos los campos");
-        // console.log(this.paciente.nombres)
-        // console.log(this.paciente.apellidos)
-        // console.log(this.paciente.tipo_id)
-        // console.log(this.paciente.numero_id)
-        // console.log(this.paciente.numero_telef)
-        // console.log(this.paciente.direccion)
-        // console.log(this.paciente.genero)
-        // console.log(this.paciente.eps)
-        // console.log(this.paciente.correo)
-        // console.log(this.paciente.fecha_nacimt)
+      // if (this.$v.$invalid) {
+      //   alert("Llenar todos los campos");
+      //   // console.log(this.paciente.nombres)
+      //   // console.log(this.paciente.apellidos)
+      //   // console.log(this.paciente.tipo_id)
+      //   // console.log(this.paciente.numero_id)
+      //   // console.log(this.paciente.numero_telef)
+      //   // console.log(this.paciente.direccion)
+      //   // console.log(this.paciente.genero)
+      //   // console.log(this.paciente.eps)
+      //   // console.log(this.paciente.correo)
+      //   // console.log(this.paciente.fecha_nacimt)
 
-        console.log("--------");
+      //   console.log("--------");
 
-        return false;
-      } else {
-        this.crearPaciente();
-        alert("Formulario correcto");
-      }
+      //   return false;
+      // } else {
+      this.crearPaciente();
+      alert("Formulario correcto");
+      // }
     },
   },
   validations: {
