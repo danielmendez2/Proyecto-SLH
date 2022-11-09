@@ -5,7 +5,7 @@ from APP.Patient.models import Patients
 
 class History(models.Model):
     Name_patients = models.ForeignKey(Patients, on_delete=models.CASCADE, verbose_name='Nombre')
-    Rh = models.CharField(max_length=2, verbose_name='Rh', null=True, blank=True)
+    Rh = models.CharField(max_length=3, verbose_name='Rh', null=True, blank=True)
     Occupation = models.CharField(max_length=100, verbose_name='Ocupacion',null=True, blank=True)
     reason_for_consultation = models.CharField(max_length=1000, verbose_name='Motivo de la consulta',
                                                blank=True, null=True)

@@ -7,7 +7,7 @@ class Doctors(models.Model):
     Surname = models.CharField(max_length=50, verbose_name='Apellido', blank=True, null=True)
     type_identification = models.CharField(max_length=30, null=True, blank=True, verbose_name='tipo de identificacion')
     identification_number = models.CharField(unique=True, max_length=11, null=True, blank=True, verbose_name='Cedula')
-    Phone = models.CharField(max_length=13, verbose_name='Telefono', null=True,blank=True)
+    Phone = models.CharField(max_length=18, verbose_name='Telefono', null=True,blank=True)
     Direction = models.CharField(max_length=50,verbose_name='direccion', null=True, blank=True)
     gender = models.CharField(max_length=1, verbose_name='Genero')
     Eps = models.CharField(max_length=100, verbose_name='EPS', blank=True, null=True)
