@@ -4,7 +4,7 @@
       <div>
         <h1>Pacientes</h1>
         <div cols="12" md="4" lg="3">
-          <v-btn color="success" @click="paciente.estado = true" dark large> Crear paciente </v-btn>
+          <v-btn color="success" @click="paciente_popap.estado = true" dark large> Crear paciente </v-btn>
         </div>
       </div>
       <div>
@@ -22,7 +22,7 @@
         </template>
       </div>
     </div>
-    <PACIENTE :paciente="paciente"></PACIENTE>
+    <PACIENTE :paciente_popap="paciente_popap"></PACIENTE>
   </div>
 </template>
 <script>
@@ -105,7 +105,7 @@ export default {
         value: "date_of_birth",
       },
     ],
-    paciente: {
+    paciente_popap: {
       estado: false,
     },
     pacientes: [],
@@ -113,6 +113,8 @@ export default {
   async mounted() {
     this.pacientes = await this.getPacientes();
     console.log("array pacientes", this.pacientes);
+  
+
     this.getServicios();
   },
   methods: {
