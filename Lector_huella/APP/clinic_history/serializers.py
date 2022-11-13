@@ -9,7 +9,6 @@ class HistoriaSerializer(ModelSerializer):
         fields = (
             'id',
             'Name_patients',
-            'Rh',
             'Occupation',
             'reason_for_consultation',
             'current_illness',

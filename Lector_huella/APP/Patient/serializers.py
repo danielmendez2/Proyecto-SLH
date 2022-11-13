@@ -13,6 +13,7 @@ class PatientsSerializer(ModelSerializer):
             'Surname',
             'type_identification',
             'identification_number',
+            'Rh',
             'Phone',
             'Direction',
             'gender',

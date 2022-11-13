@@ -8,6 +8,7 @@ class Patients(models.Model):
     Surname = models.CharField(max_length=50, verbose_name='Apellidos')
     type_identification = models.CharField(max_length=30, null=True, blank=True, verbose_name='tipo de identificacion')
     identification_number = models.CharField(unique=True, max_length=11, verbose_name='Cedula')
+    Rh = models.CharField(max_length=3, verbose_name='Rh', null=True, blank=True)
     Phone = models.CharField(max_length=18, verbose_name='Telefono')
     Direction = models.CharField(max_length=50, verbose_name='Direccion')
     gender = models.CharField(max_length=1, verbose_name='Genero')
