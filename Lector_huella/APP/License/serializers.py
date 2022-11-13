@@ -14,6 +14,7 @@ class VaccinesSerializer(ModelSerializer):
                   'Factory',
                   'Lot',
                   'Eps',
+                  'Ips',
                   'Vaccinator_name',)
 
 

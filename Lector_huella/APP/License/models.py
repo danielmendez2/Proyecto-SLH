@@ -14,8 +14,9 @@ class Vaccines(models.Model):
     Vaccine_date = models.DateField(verbose_name='Fecha de la vacuna', null=True, blank=True)
     Factory = models.CharField(verbose_name='Fabricante', null=True, blank=True, max_length=50)
     Lot = models.CharField(max_length=50, null=True, blank=True, verbose_name='Lote')
-    Eps = models.CharField(max_length=100, verbose_name='Ips vacunadora',
+    Eps = models.CharField(max_length=100, verbose_name='Eps vacunadora',
                            blank=True, null=True)
+    Ips = models.CharField(max_length=75, blank=True, null=True, verbose_name='Ips')
     Vaccinator_name = models.ForeignKey(Nurses, on_delete=models.CASCADE,
                                         verbose_name='Nombre del vacunador')
 
@@ -26,7 +27,7 @@ class Growth_and_development(models.Model):
                              verbose_name='Datos del paciente')
     Weight = models.CharField(max_length=3, null=True, blank=True, verbose_name='Peso')
     stature = models.CharField(max_length=3, verbose_name='Estatura', null=True, blank=True)
-    IMC = models.CharField(max_length=3, verbose_name='Imc', null=True, blank=True)
+    IMC = models.CharField(max_length=15, verbose_name='Imc', null=True, blank=True)
     Temperature = models.CharField(max_length=2, verbose_name='Temperatura', null=True, blank=True)
     Pulse = models.CharField(max_length=3, verbose_name='Pulso', null=True, blank=True)
     Breathing_frequency = models.CharField( max_length=3, verbose_name='Frecuencia respiratoria',

@@ -11,7 +11,7 @@ class Patients(models.Model):
     Rh = models.CharField(max_length=3, verbose_name='Rh', null=True, blank=True)
     Phone = models.CharField(max_length=18, verbose_name='Telefono')
     Direction = models.CharField(max_length=50, verbose_name='Direccion')
-    gender = models.CharField(max_length=1, verbose_name='Genero')
+    gender = models.CharField(max_length=12, verbose_name='Genero')
     Eps = models.CharField(max_length=50, verbose_name='Eps')
     email = models.EmailField(max_length=100, verbose_name='Correo')
     date_of_birth = models.DateField(null=True, blank=True, verbose_name='Fecha de cumpleaños')
