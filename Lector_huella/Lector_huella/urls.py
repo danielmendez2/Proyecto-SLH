@@ -15,6 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework_simplejwt import views as jwt_views
+from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated
 from APP.user.routers import router_user
 from APP.Patient.router import router_patients
 from APP.Doctor.routers import router_doctors
@@ -22,8 +26,16 @@ from APP.clinic_history.router import router_history
 from APP.License.router import router_vaccines, router_growth
 from APP.Nurse.router import router_nurse
 
+class Protegida(ModelViewSet):
+    permission_classes = [IsAuthenticated]
+
+    def get(self,request):
+        return Response({"content": "Esta vista es segura"})
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/token', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh', jwt_views.TokenRefreshView.as_view(),name='token_refresh'),
     #path('api/historia/lista', HistoriaListAPIView.as_view(), name='historia'),
     path('api/user', include(router_user.urls)),
     path('api/Patients', include(router_patients.urls)),

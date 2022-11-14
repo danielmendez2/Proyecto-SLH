@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'APP.License',
     "corsheaders",
     'rest_framework',
+    'rest_framework_simplejwt',
 ]
 CORS_ALLOW_HEADERS = [
     "accept",
@@ -109,6 +110,20 @@ DATABASES = {
     }
 }
 
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
+    'REFRESH_TOKEN_LIFETIME': timedelta(minutes=10),
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
