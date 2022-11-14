@@ -23,7 +23,7 @@ class Vaccines(models.Model):
 
 class Growth_and_development(models.Model):
     Date_joined = models.DateTimeField(auto_now_add=True)
-    name_patients = models.ForeignKey(Patients, on_delete=models.CASCADE, null=True, blank=False,
+    name_patients = models.ForeignKey(Patients, on_delete=models.CASCADE, null=False, blank=False,
                              verbose_name='Datos del paciente')
     Weight = models.CharField(max_length=3, null=True, blank=True, verbose_name='Peso')
     stature = models.CharField(max_length=3, verbose_name='Estatura', null=True, blank=True)
