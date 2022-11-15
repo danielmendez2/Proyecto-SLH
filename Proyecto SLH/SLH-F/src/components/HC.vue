@@ -1,36 +1,36 @@
 <template>
   <v-dialog v-model="historia.estado" persistent>
     <v-card>
+      <v-footer class="sticky" color="primary">
+        <h1 class="white--text">Historia clínica</h1>
+        <v-spacer></v-spacer>
+        <v-btn icon @click="historia.estado = false">
+          <v-icon>mdi-close-thick</v-icon>
+        </v-btn>
+      </v-footer>
+
       <v-container id="user-profile" fluid tag="section">
-        <h1>Crear historia clínica</h1>
         <v-row justify="center">
           <v-col cols="12" md="12">
             <base-material-card>
               <v-form>
                 <v-container class="py-0">
                   <v-row justify="center">
-                    <v-col cols="12" md="4" lg="2">
+                    <v-col cols="12" md="4" lg="3">
                       <v-autocomplete
                         item-text="identification_number"
                         item-value="id"
                         v-model="historia_clinica.Name_patients"
-                        label="Pacientes"
+                        label="N° documento"
                         :items="pacientes"
                       >
                       </v-autocomplete>
                     </v-col>
-                    <v-col cols="12" md="4" lg="3">
-                      <v-text-field class="purple-input" v-model="historia_clinica.Rh" label="Rh" />
-                    </v-col>
+
                     <v-col cols="12" md="4" lg="3">
                       <v-text-field class="purple-input" v-model="historia_clinica.Occupation" label="Ocupación" />
                     </v-col>
-                    <v-col cols="12" md="6" lg="3">
-                      <v-text-field v-model="historia_clinica.reason_for_consultation" label="Razón de la consulta" class="purple-input" />
-                    </v-col>
-                    <v-col cols="12" md="4" lg="3">
-                      <v-text-field v-model="historia_clinica.current_illness" label="Enfermedad actual" class="purple-input" />
-                    </v-col>
+
                     <v-col cols="12" md="4" lg="3">
                       <v-text-field
                         v-model="historia_clinica.hour_entry_finish"
@@ -39,24 +39,40 @@
                         class="purple-input"
                       />
                     </v-col>
+                    <v-col cols="12" md="4" lg="12">
+                      <v-text-field v-model="historia_clinica.current_illness" label="Enfermedad actual" class="purple-input" />
+                    </v-col>
+                    <v-col cols="12">
+                      <v-textarea class="purple-input" auto-grow v-model="historia_clinica.reason_for_consultation" label="Razón de la consulta" />
+                    </v-col>
                     <v-col cols="12">
                       <v-textarea class="purple-input" auto-grow v-model="historia_clinica.Doctor_concept" label="Concepto médico" />
                     </v-col>
-                    <div class="text-xs-right">
-                      <v-btn color="success" @click="crearHistory()" class="mr-0">Guardar</v-btn>
-
-                      <v-btn color="warning" class="mr-0" @click="historia.estado = false"> cerrar </v-btn>
-                    </div>
+                    <v-col class="text-xs-right">
+                      <v-btn bottom absolute right color="success" @click="crearHistory()" class="mr-0">Registrar</v-btn>
+                    </v-col>
                   </v-row>
                 </v-container>
               </v-form>
             </base-material-card>
           </v-col>
-
-          <v-col cols="12" md="4"> </v-col>
         </v-row>
       </v-container>
     </v-card>
+    <v-snackbar class="black--text" color="success" right v-model="alert.estado">
+      <h3>{{ alert.text }}</h3>
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="withe" icon v-bind="attrs" @click="alert.estado = false"><v-icon>mdi-close-thick</v-icon></v-btn>
+      </template>
+    </v-snackbar>
+    <v-snackbar class="black--text" color="warning" right v-model="alertfail.estado">
+      <h3>{{ alertfail.text }}</h3>
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="withe" icon v-bind="attrs" @click="alertfail.estado = false"><v-icon>mdi-close-thick</v-icon></v-btn>
+      </template>
+    </v-snackbar>
   </v-dialog>
 </template>
 <script>
@@ -73,6 +89,15 @@ export default {
   },
   data() {
     return {
+      alert: {
+        estado: "",
+        text: "",
+      },
+      alertfail: {
+        estado: "",
+        text: "",
+      },
+
       historia_clinica: {
         Name_patients: "",
         Rh: "",
@@ -85,19 +110,17 @@ export default {
 
       idpaci: [],
       pacientes: [],
+      rh: ["A +", "A-", "B +", "B-", "AB+", "AB-", "O+", "O-"],
     };
   },
   async mounted() {
     this.pacientes = await this.getPacientes();
     console.log(this.pacientes);
+    this.getServicios();
   },
   methods: {
-    async mounted() {
-      console.log("array pacientes", this.paciente);
-      this.getServicios();
-    },
     getServicios() {
-      axios.get(Global.url + "/api/Patients/listpatients/").then((res) => {
+      axios.get(Global.url + "/api/historyhistory/").then((res) => {
         console.log("estoy en metodo get pacientes", res.status);
         if (res.status == 200) {
           this.historia_cli = res.data;
@@ -107,11 +130,13 @@ export default {
         }
       });
     },
+
     ...mapActions({
       crearHistoria: "historia_clinica/crearHistoria",
       getPacientes: "pacientes_api/getPacientes",
     }),
     async crearHistory() {
+      console.log(this.historia_clinica);
       const data = {
         Name_patients: this.historia_clinica.Name_patients,
         Name: this.historia_clinica.Name_patients,
@@ -123,44 +148,16 @@ export default {
         Doctor_concept: this.historia_clinica.Doctor_concept,
       };
       let res = await this.crearHistoria({ data });
-      console.log("respuesta de crear historia", res);
-    },
-
-    procesar() {
-      if (this.$v.$invalid) {
-        alert("Llenar todos los campos");
-        console.log("--------");
-
-        return false;
+      if (res) {
+        this.alert.estado = true;
+        setTimeout(() => {
+          this.historia.estado = false;
+        }, 1000);
+        this.alert.text = "Historia registrada";
       } else {
-        this.guardar();
-
-        alert("Formulario correcto");
+        this.alertfail.estado = true;
+        this.alertfail.text = "Complete los campos";
       }
-    },
-  },
-  validations: {
-    historia_clinica: {
-      Occupation: {
-        required,
-        minLength: minLength(2),
-      },
-      reason_for_consultation: {
-        required,
-        minLength: minLength(2),
-      },
-      current_illness: {
-        required,
-        minLength: minLength(2),
-      },
-      hour_entry_finish: {
-        required,
-        minLength: minLength(2),
-      },
-      Doctor_concept: {
-        required,
-        minLength: minLength(1),
-      },
     },
   },
 };

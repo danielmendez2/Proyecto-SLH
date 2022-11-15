@@ -1,8 +1,14 @@
 <template>
-  <v-dialog v-model="paciente.estado" persistent>
+  <v-dialog v-model="paciente_popap.estado" persistent>
     <v-card>
+      <v-footer class="sticky" color="primary">
+        <h1 class="white--text">Paciente</h1>
+        <v-spacer></v-spacer>
+        <v-btn icon @click="paciente_popap.estado = false">
+          <v-icon>mdi-close-thick</v-icon>
+        </v-btn>
+      </v-footer>
       <v-container id="user-profile" fluid tag="section">
-        <h1>Crear paciente</h1>
         <v-row justify="center">
           <v-col cols="12" md="12">
             <base-material-card>
@@ -36,7 +42,6 @@
                         </template>
                       </v-select>
                     </v-col>
-
                     <v-col cols="12" md="6" lg="3">
                       <v-text-field v-model="paciente.identification_number" type="number" label="Número  de documento" class="purple-input" />
                     </v-col>
@@ -45,7 +50,7 @@
                       <v-text-field v-model="paciente.date_of_birth" type="date" label="Fecha de nacimiento" class="purple-input" />
                     </v-col>
 
-                    <v-col cols="12" md="4" lg="2">
+                    <v-col cols="12" md="4" lg="3">
                       <v-select v-model="paciente.gender" :items="['Femenino', 'Masculino', 'Otros']" label="Género">
                         <template v-slot:item="{ item, attrs, on }">
                           <v-list-item v-bind="attrs" v-on="on">
@@ -55,16 +60,31 @@
                       </v-select>
                     </v-col>
                     <v-col cols="12" md="4" lg="3">
-                      <v-text-field v-model="paciente.Phone" v-mask="'+57 (###) ####-###'" label="Número celular" class="purple-input" />
+                      <v-text-field v-model="paciente.Phone" v-mask="'+57 (###) ####-###'" label="Celular" class="purple-input" />
                     </v-col>
 
                     <v-col cols="12" md="4" lg="3">
                       <v-text-field v-model="paciente.Direction" label="Dirección" class="purple-input" />
                     </v-col>
 
-                  
                     <v-col cols="12" md="4" lg="2">
-                      <v-select v-model="paciente.Eps" :items="['SANITAS', 'NUEVA EPS', 'FAMISANAR', 'CAPITAL SALUD', 'ALIANSALUD', 'COMPENSAR', 'COMMEVAEPS', 'SALUD TOTAL', 'SURA', 'SOS', 'FUNDACION SALUD MIA']" label="EPS">
+                      <v-select
+                        v-model="paciente.Eps"
+                        :items="[
+                          'SANITAS',
+                          'NUEVA EPS',
+                          'FAMISANAR',
+                          'CAPITAL SALUD',
+                          'ALIANSALUD',
+                          'COMPENSAR',
+                          'COMMEVAEPS',
+                          'SALUD TOTAL',
+                          'SURA',
+                          'SOS',
+                          'FUNDACION SALUD MIA',
+                        ]"
+                        label="EPS"
+                      >
                         <template v-slot:item="{ item, attrs, on }">
                           <v-list-item v-bind="attrs" v-on="on">
                             <v-list-item-title :id="attrs['aria-labelledby']" v-text="item"></v-list-item-title>
@@ -72,46 +92,55 @@
                         </template>
                       </v-select>
                     </v-col>
-
                     <v-col cols="12" md="4" lg="3">
                       <v-text-field class="purple-input" label="Correo electrónico" v-model="paciente.email" />
                     </v-col>
-
-                    <div class="text-xs-right">
-                      <v-btn color="success" @click="procesar()" class="mr-0">Guardar</v-btn>
-                      <!-- v-on="submit.prevent="procesar()" -->
-                      <v-btn color="warning" class="mr-0" @click="paciente.estado = false"> cerrar </v-btn>
-                    </div>
+                    <v-col class="text-xs-right">
+                      <v-btn bottom absolute right color="success" @click="crearPaciente()" class="mr-0">Registrar</v-btn>
+                    </v-col>
                   </v-row>
                 </v-container>
               </v-form>
             </base-material-card>
           </v-col>
-
           <v-col cols="12" md="4"> </v-col>
         </v-row>
       </v-container>
     </v-card>
+    <v-snackbar class="black--text" color="success" right v-model="alert.estado">
+      <h3>{{ alert.text }}</h3>
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="withe" icon v-bind="attrs" @click="alert.estado = false"><v-icon>mdi-close-thick</v-icon></v-btn>
+      </template>
+    </v-snackbar>
+    <v-snackbar class="black--text" color="warning" right v-model="alertfail.estado">
+      <h3>{{ alertfail.text }}</h3>
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="withe" icon v-bind="attrs" @click="alertfail.estado = false"><v-icon>mdi-close-thick</v-icon></v-btn>
+      </template>
+    </v-snackbar>
   </v-dialog>
 </template>
 <script>
-// import { Global } from '../Global';
-// import axios from 'axios';
 import { required, minLength, email } from "vuelidate/lib/validators";
 import { mapActions } from "vuex";
-// import { config } from 'vue/types/umd';
 export default {
-  name: "hc",
-
+  name: "pc",
   props: {
-    paciente: Object,
+    paciente_popap: Object,
   },
-
   data() {
     return {
-      date: "2018-03-02",
-
-      // submited: false,
+      alert: {
+        estado: "",
+        text: "",
+      },
+      alertfail: {
+        estado: "",
+        text: "",
+      },
       paciente: {
         Name: "",
         Surname: "",
@@ -124,52 +153,41 @@ export default {
         email: "",
         date_of_birth: "",
       },
-      //servicios: [],
     };
   },
-
   methods: {
-    allowedDates: (val) => parseInt(val.split("-")[2], 10) % 2 === 0,
     ...mapActions({
-      crearPaciente: "paciente/crearPaciente",
+      _crearPaciente: "pacientes_api/crearPaciente",
     }),
     async crearPaciente() {
-      const data = this.paciente;
-      let res = await this.crearPaciente({ data });
-      console.log(res);
+      const data = {
+        Name: this.paciente.Name,
+        Surname: this.paciente.Surname,
+        type_identification: this.paciente.type_identification,
+        identification_number: this.paciente.identification_number,
+        Phone: this.paciente.Phone,
+        Direction: this.paciente.Direction,
+        gender: this.paciente.gender,
+        Eps: this.paciente.Eps,
+        email: this.paciente.email,
+        date_of_birth: this.paciente.date_of_birth,
+      };
+      let res = await this._crearPaciente({ data });
+      if (res) {
+        this.alert.estado = true;
+        setTimeout(() => {
+          this.paciente_popap.estado = false;
+        }, 1000);
+        this.alert.text = "Paciente registrado";
+      } else {
+        this.alertfail.estado = true;
+        this.alertfail.text = "Complete los campos";
+      }
+      console.log("respuesta de crear paciente", res);
     },
-    // getServicios(){
-    //   let config = {
-    //     headers:{
-    //       'token' : Global.token
-    //     }
-    //   }
-    //   axios.get(Global.url, config)
-    //   .then()
-    // },
+
     procesar() {
-      // this.submited = true;
-      // this.$v.$touch();
-      // if (this.$v.$invalid) {
-      //   alert("Llenar todos los campos");
-      //   // console.log(this.paciente.nombres)
-      //   // console.log(this.paciente.apellidos)
-      //   // console.log(this.paciente.tipo_id)
-      //   // console.log(this.paciente.numero_id)
-      //   // console.log(this.paciente.numero_telef)
-      //   // console.log(this.paciente.direccion)
-      //   // console.log(this.paciente.genero)
-      //   // console.log(this.paciente.eps)
-      //   // console.log(this.paciente.correo)
-      //   // console.log(this.paciente.fecha_nacimt)
-
-      //   console.log("--------");
-
-      //   return false;
-      // } else {
-      this.crearPaciente();
       alert("Formulario correcto");
-      // }
     },
   },
   validations: {

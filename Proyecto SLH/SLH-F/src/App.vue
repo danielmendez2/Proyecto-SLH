@@ -1,10 +1,10 @@
 <template>
   <v-app>
-  <Navbar/>
+  <Navbar v-if="$route.path != '/Login'"/>
     <v-content class="ma-4">
       <router-view></router-view>
     </v-content>
-     <Footer/>
+     <Footer v-if="$route.path != '/Login'"/>
   </v-app>
  
 </template>
@@ -23,3 +23,10 @@ export default {
   }),
 };
 </script>
+<style>
+.sticky{
+position: sticky;
+top:0px;
+z-index: 1;
+}
+</style>
