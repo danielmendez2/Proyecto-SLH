@@ -14,11 +14,12 @@
             </div>
           </div> -->
 
-        <v-text-field cols="12" md="4" lg="3" label="Consultar por número ID" class="purple-input" />
+        <v-text-field cols="12" md="4" lg="3" v-model="search" label="Consultar por N° documento" class="purple-input" />
         <template>
           <v-data-table
-            :search="crecimt_desarr.search"
+            :search="search"
             :headers="headers"
+            item-key="id"
             :items="crecimiento_des"
             :items-per-page="5"
             class="elevation-1"
@@ -26,7 +27,7 @@
         </template>
       </div>
     </div>
-    <CRECIMIENTO :crecimt_desarr="crecimt_desarr"></CRECIMIENTO>
+    <CRECIMIENTO :crecimt_desarr="crecimt_desarr"  v-if="crecimt_desarr.estado" ></CRECIMIENTO>
   </div>
 </template>
 <script>
@@ -40,11 +41,29 @@ export default {
     CRECIMIENTO: popapCrecimt_desarr,
   },
   data: () => ({
+    search: "",
     crecimt_desarr: {
-      search: "",
       estado: false,
     },
     headers: [
+      {
+        text: "Nombres",
+        align: "center",
+        sortable: false,
+        value: "name_patients.Name",
+      },
+      {
+        text: "Apellidos",
+        align: "center",
+        sortable: false,
+        value: "name_patients.Surname",
+      },
+      {
+        text: "N° documento paciente",
+        align: "center",
+        sortable: false,
+        value: "name_patients.identification_number",
+      },
       {
         text: "Peso",
         align: "center",
@@ -99,17 +118,31 @@ export default {
     },
 
     crecimiento_des: [],
+    pacientes: [],
   }),
 
   async mounted() {
     this.crecimiento_des = await this.getCrecimiento();
-    console.log("array crecimiento", this.crecimiento_des);
+    this.pacientes = await this.getPacientes();
+    this.crecimiento_des.forEach(async (e, i) => {
+      e.name_patients = await this.traerPaci(e.name_patients);
+    });
+
     this.getServicios();
   },
 
   methods: {
+    async traerPaci(id) {
+      let respaci = [];
+      respaci = await this.getPaciente({ id });
+      console.log("--------Z", respaci);
+
+      return respaci;
+    },
     ...mapActions({
       getCrecimiento: "crecimiento_api/getCrecimiento",
+      getPacientes: "pacientes_api/getPacientes",
+      getPaciente: "pacientes_api/getPaciente",
       //getHistoria: "historia_clinica/getHistoria",
     }),
     async obtenerCrecimiento() {
