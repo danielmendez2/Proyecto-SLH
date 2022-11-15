@@ -2,7 +2,7 @@
   <v-dialog v-model="crecimt_desarr.estado" persistent>
     <v-card>
       <v-footer class="sticky" color="primary">
-        <h1 class="white--text">Crear crecimiento y desarrollo</h1>
+        <h1 class="white--text">Crecimiento y desarrollo</h1>
         <v-spacer></v-spacer>
         <v-btn icon @click="crecimt_desarr.estado = false">
           <v-icon>mdi-close-thick</v-icon>
@@ -19,8 +19,8 @@
                       <v-autocomplete
                         item-text="identification_number"
                         item-value="id"
-                        v-model="crecimt_desarrollo.Name_patients"
-                        label="Pacientes"
+                        v-model="crecimt_desarrollo.name_patients"
+                        label="N° documento paciente"
                         :items="pacientes"
                       >
                       </v-autocomplete>
@@ -42,34 +42,28 @@
                     </v-col>
 
                     <v-col cols="12" md="4">
-                      <v-text-field v-model="crecimt_desarrollo.IMC" class="purple-input" disabled label="IMC" />
+                      <v-text-field v-model="calcular_imc" class="purple-input" disabled label="IMC" />
                     </v-col>
-
                     <v-col cols="12" md="4" lg="3">
-                      <v-text-field
-                        maxlength="3"
-                        v-model="crecimt_desarrollo.Temperature"
-                        class="purple-input"
-                        label="Temperatura "
-                        suffix="°C"
-                        type="number"
-                        oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                      />
+                      <v-text-field v-model="crecimt_desarrollo.Temperature" class="purple-input" label="Temperatura " suffix="°C" type="number" />
                     </v-col>
                     <v-col cols="12" md="4" lg="3">
                       <v-text-field v-model="crecimt_desarrollo.Pulse" class="purple-input" suffix="BPM" label="Pulso" />
                     </v-col>
                     <v-col cols="12" md="4" lg="3">
-                      <v-text-field v-model="crecimt_desarrollo.Breathing_frequency" class="purple-input" label="Frecuencia respiratoria" />
+                      <v-text-field
+                        v-model="crecimt_desarrollo.Breathing_frequency"
+                        class="purple-input"
+                        label="Frecuencia respiratoria"
+                        suffix="Res/Minuto"
+                      />
                     </v-col>
                     <v-col cols="12" md="4" lg="3">
                       <v-text-field v-model="crecimt_desarrollo.Blood_pressure" class="purple-input" label="Tensión arterial" suffix="mmHg" />
                     </v-col>
-                    <v-col cols="12">
-                      <v-textarea auto-grow class="purple-input" label="Concepto médico" />
-                    </v-col>
+
                     <div class="text-xs-right">
-                      <v-btn bottom absolute right color="success" @click="crearDesarrollo()" class="mr-0">Guardar</v-btn>
+                      <v-btn bottom absolute right color="success" @click="crearCrecimiento()" class="mr-0">Registrar</v-btn>
                     </div>
                   </v-row>
                 </v-container>
@@ -81,13 +75,27 @@
         </v-row>
       </v-container>
     </v-card>
+    <v-snackbar class="black--text" color="success" right v-model="alert.estado">
+      <h3>{{ alert.text }}</h3>
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="withe" icon v-bind="attrs" @click="alert.estado = false"><v-icon>mdi-close-thick</v-icon></v-btn>
+      </template>
+    </v-snackbar>
+    <v-snackbar class="black--text" color="warning" right v-model="alertfail.estado">
+      <h3>{{ alertfail.text }}</h3>
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="withe" icon v-bind="attrs" @click="alertfail.estado = false"><v-icon>mdi-close-thick</v-icon></v-btn>
+      </template>
+    </v-snackbar>
   </v-dialog>
 </template>
 <script>
-import axios from "axios";
-import { Global } from "../global";
 import { required, minLength, email } from "vuelidate/lib/validators";
+import { Global } from "../global";
 import { mapActions } from "vuex";
+import axios from "axios";
 export default {
   name: "cd",
   props: {
@@ -95,6 +103,23 @@ export default {
   },
   data() {
     return {
+      // rules: {
+      //   required: (value) => !!crecimt_desarrollo.Weight || "Required.",
+      //   counter: (value) => crecimt_desarrollo.Weight.length <= 3 || "Max 3 characters",
+      //   email: (value) => {
+      //     const pattern =
+      //       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      //     return pattern.test(value) || "Invalid e-mail.";
+      //   },
+      // },
+      alert: {
+        estado: "",
+        text: "",
+      },
+      alertfail: {
+        estado: "",
+        text: "",
+      },
       crecimt_desarrollo: {
         name_patients: "",
         Weight: "",
@@ -112,23 +137,27 @@ export default {
       pacientes: [],
     };
   },
-
-  async mounted() {
-    this.pacientes = await this.getPacientes();
-    console.log(this.pacientes);
+  computed: {
+    calcular_imc() {
+      let imc_local = (this.crecimt_desarrollo.IMC =
+        Number(this.crecimt_desarrollo.Weight) / (Number(this.crecimt_desarrollo.stature) * Number(this.crecimt_desarrollo.stature)));
+      //imc_local.padStart(4,"0");
+      // imc_local = toString(imc_local);
+      let a = Number(imc_local).toString().split(".");
+      let b = a[1] && a[1];
+      return Number(b);
+    },
   },
 
+  async mounted() {
+    // this.crecimt_desarr.IMC = this.crecimt_desarr.Weight / (this.crecimt_desarr.stature * this.crecimt_desarr.stature);
+    // console.log("VALOR DE IMC", this.crecimt_desarr.IMC);
+    this.pacientes = await this.getPacientes();
+    this.getServicios();
+  },
   methods: {
-    async mounted() {
-      this.pacientes = await this.getPacientes();
-      console.log(this.pacientes);
-    },
-    async mounted() {
-      console.log("array pacientes", this.paciente);
-      this.getServicios();
-    },
     getServicios() {
-      axios.get(Global.url + "/api/Patients/listpatients/").then((res) => {
+      axios.get(Global.url + "Patientspatients/").then((res) => {
         console.log("estoy en metodo get pacientes", res.status);
         if (res.status == 200) {
           this.historia_cli = res.data;
@@ -139,35 +168,34 @@ export default {
       });
     },
     ...mapActions({
-      crearCrecimiento: "crecimiento_api/crearCrecimiento",
+      crearCrecientoDesa: "crecimiento_api/crearCrecimiento",
       getPacientes: "pacientes_api/getPacientes",
     }),
-    async crearDesarrollo() {
-      this.crecimt_desarr.IMC = this.crecimt_desarr.Weight / (this.crecimt_desarr.stature * this.crecimt_desarr.stature);
-      console.log("VALOR DE IMC", this.crecimt_desarr.IMC);
+    async crearCrecimiento() {
       const data = {
-        Name_patients: this.crecimt_desarr.Name_patients,
-        Weight: this.crecimt_desarr.Weight,
-        stature: this.crecimt_desarr.stature,
-        IMC: this.crecimt_desarr.IMC,
-        Temperature: this.crecimt_desarr.Temperature,
-        Pulse: this.crecimt_desarr.Pulse,
-        Breathing_frequency: this.crecimt_desarr.Breathing_frequency,
-        Blood_pressure: this.crecimt_desarr.Blood_pressure,
-        Doctor_name: this.crecimt_desarr.Doctor_name,
+        name_patients: this.crecimt_desarrollo.name_patients,
+        Weight: this.crecimt_desarrollo.Weight,
+        stature: this.crecimt_desarrollo.stature,
+        IMC: this.calcular_imc,
+        Temperature: this.crecimt_desarrollo.Temperature,
+        Pulse: this.crecimt_desarrollo.Pulse,
+        Breathing_frequency: this.crecimt_desarrollo.Breathing_frequency,
+        Blood_pressure: this.crecimt_desarrollo.Blood_pressure,
+        Doctor_name: this.crecimt_desarrollo.Doctor_name,
       };
-      let res = await this.crearCrecimiento({ data });
-      console.log("respuesta de crear historia", res);
-    },
-
-    procesar() {
-      if (this.$v.$invalid) {
-        alert("Llenar todos los campos");
-        console.log("--------");
-
-        return false;
+      console.log("imc", data.IMC);
+      console.log("imc", data.Temperature);
+      console.log("imc", data.Weight);
+      let res = await this.crearCrecientoDesa({ data });
+      if (res) {
+        this.alert.estado = true;
+        setTimeout(() => {
+          this.crecimt_desarr.estado = false;
+        }, 1000);
+        this.alert.text = "Carnet registrado";
       } else {
-        alert("Formulario correcto");
+        this.alertfail.estado = true;
+        this.alertfail.text = "Complete los campos";
       }
     },
   },
