@@ -12,7 +12,7 @@ export default {
     async getVacunas({ commit }) {
       try {
         const respuesta = await http({
-          url: `Vaccines/listvaccines/`,
+          url: `Vaccinesvaccines/`,
           header: {},
           method: "GET",
         });
@@ -25,7 +25,7 @@ export default {
     async getVacunasid({ commit }, { id }) {
       try {
         const respuesta = await http({
-          url: `Vaccines/listvaccines/${id}`,
+          url: `Vaccinesvaccines/${id}`,
           header: {},
           method: "GET",
         });
@@ -35,10 +35,10 @@ export default {
         console.error(error);
       }
     },
-    async crearPaciente({ commit }, { data }) {
+    async crearVacuna({ commit }, { data }) {
       try {
         const respuesta = await http({
-          url: `Vaccines/listvaccines/`,
+          url: `Vaccinesvaccines/`,
           // header: {},
           data,
           method: "POST",
