@@ -11,7 +11,7 @@ export default {
     async getHistorias({ commit }) {
       try {
         const respuesta = await http({
-          url: `history/listhistory/`,
+          url: `historyhistory/`,
           header: {},
           method: "GET",
         });
@@ -24,7 +24,7 @@ export default {
     async getHistoria({ commit }, { id }) {
       try {
         const respuesta = await http({
-          url: `history/listhistory/${id}`,
+          url: `historyhistory/${id}`,
           header: {},
           method: "GET",
         });
@@ -35,10 +35,10 @@ export default {
       }
     },
     async crearHistoria({ commit }, { data }) {
-      console.log("data de crear historia", data)
+      console.log("data de crear historia", data);
       try {
         const respuesta = await http({
-          url: `history/listhistory`,
+          url: `historyhistory/`,
           header: {},
           data,
           method: "POST",

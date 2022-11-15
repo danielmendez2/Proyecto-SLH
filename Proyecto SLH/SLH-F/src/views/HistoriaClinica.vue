@@ -14,7 +14,7 @@
           </div>
         </div> -->
 
-        <v-text-field cols="12" md="4" lg="3" v-model="search" label="Consultar por número ID" class="purple-input" />
+        <v-text-field cols="12" md="4" lg="3" v-model="search" label="Consultar por N° documento" class="purple-input" />
 
         <!-- :items="registros" -->
         <template>
@@ -22,7 +22,7 @@
         </template>
       </div>
     </div>
-    <HISTORIA :historia="historia"></HISTORIA>
+    <HISTORIA :historia="historia" v-if="historia.estado"></HISTORIA>
   </div>
 </template>
 <script>
@@ -38,17 +38,23 @@ export default {
     search: "",
     headers: [
       {
-        text: "ID",
+        text: "Nombres",
         align: "center",
         sortable: false,
-        value: "id",
+        value: "Name_patients.Name",
       },
-      // {
-      //   text: "--Name--",
-      //   align: "center",
-      //   sortable: false,
-      //   value: "Name",
-      // },
+      {
+        text: "Apellidos",
+        align: "center",
+        sortable: false,
+        value: "Name_patients.Surname",
+      },
+      {
+        text: "N° documento",
+        align: "center",
+        sortable: false,
+        value: "Name_patients.identification_number",
+      },
       {
         text: "Ocupación",
         align: "center",
@@ -84,30 +90,36 @@ export default {
       estado: false,
     },
     historias: [],
+    pacientes: [],
   }),
 
   async mounted() {
     this.historias = await this.getHistorias();
-    console.log("array historias",this.historias)
+    this.pacientes = await this.getPacientes();
+
+    this.historias.forEach(async (e, i) => {
+      e.Name_patients = await this.traerPaci(e.Name_patients);
+    });
+
     this.getServicios();
   },
   methods: {
+    async traerPaci(id) {
+      let respaci = [];
+      respaci = await this.getPaciente({ id });
+      return respaci;
+    },
     ...mapActions({
       getHistorias: "historia_clinica/getHistorias",
-      //getHistoria: "historia_clinica/getHistoria",
+      getPacientes: "pacientes_api/getPacientes",
+      getPaciente: "pacientes_api/getPaciente",
     }),
     async obtenerHistoria() {
       const id = this.search;
       let res = await this.getHistoria({ id });
     },
-
     getServicios() {
-      let config = {
-        // Headers:{
-        //   'token': Global.token
-        // }
-      };
-      axios.get(Global.url + "/api/history/listhistory/").then((res) => {
+      axios.get(Global.url + "/historyhistory/").then((res) => {
         console.log("estoy en metodo get", res.status);
         if (res.status == 200) {
           this.historia_cli = res.data;

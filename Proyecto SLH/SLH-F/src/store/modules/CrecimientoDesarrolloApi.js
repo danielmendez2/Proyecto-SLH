@@ -11,7 +11,7 @@ export default {
     async getCrecimiento({ commit }) {
       try {
         const respuesta = await http({
-          url: `Growth/listgrowth_and_development/`,
+          url: `Growthgrowth_and_development/`,
           header: {},
           method: "GET",
         });
@@ -24,7 +24,7 @@ export default {
     async getCrecimientoid({ commit }, { id }) {
       try {
         const respuesta = await http({
-          url: `Growth/listgrowth_and_development/${id}`,
+          url: `Growthgrowth_and_development/${id}`,
           header: {},
           method: "GET",
         });
@@ -37,7 +37,7 @@ export default {
     async crearCrecimiento({ commit }, { data }) {
       try {
         const respuesta = await http({
-          url: `Growth/listgrowth_and_development/`,
+          url: `Growthgrowth_and_development/`,
         //   header: { Accept: "application/json", "Content-Type": "applicaton/json" },
           data,
           method: "POST",

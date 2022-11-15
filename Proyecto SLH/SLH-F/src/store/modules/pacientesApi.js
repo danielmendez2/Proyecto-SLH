@@ -12,7 +12,7 @@ export default {
     async getPacientes({ commit }) {
       try {
         const respuesta = await http({
-          url: `Patients/listpatients/`,
+          url: `Patientspatients/`,
           header: {},
           method: "GET",
         });
@@ -25,11 +25,10 @@ export default {
     async getPaciente({ commit }, { id }) {
       try {
         const respuesta = await http({
-          url: `Patients/listpatients/${id}`,
+          url: `Patientspatients/${id}/`,
           header: {},
           method: "GET",
         });
-        console.log("res", respuesta);
         return respuesta;
       } catch (error) {
         console.error(error);
@@ -38,7 +37,7 @@ export default {
     async crearPaciente({ commit }, { data }) {
       try {
         const respuesta = await http({
-          url: `Patients/listpatients/`,
+          url: `Patientspatients/`,
           header: {},
           data,
           method: "POST",
@@ -46,7 +45,6 @@ export default {
         return respuesta;
       } catch (error) {
         console.error(error);
-        
       }
     },
   },
