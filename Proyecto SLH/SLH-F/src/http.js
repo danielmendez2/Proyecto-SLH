@@ -11,6 +11,7 @@ const axiosSc = ({ url, data = {}, method = "POST", header = {}, responseType = 
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.auth,
         ...header,
       },
       responseType,
@@ -18,7 +19,7 @@ const axiosSc = ({ url, data = {}, method = "POST", header = {}, responseType = 
         return status >= 200 && status < 400;
       },
     };
-    console.log(config);
+    console.log("esta es config", config);
     axios(config)
       .then((res) => {
         resolve(res.data);
