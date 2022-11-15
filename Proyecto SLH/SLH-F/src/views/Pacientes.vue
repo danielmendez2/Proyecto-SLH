@@ -8,21 +8,13 @@
         </div>
       </div>
       <div>
-        <!-- <div>
-            <div cols="12" md="4" lg="3">
-              <v-btn color="success" dark large> Consultar por numero ID </v-btn>
-            </div>
-          </div> -->
-
-        <v-text-field cols="12" md="4" lg="3" v-model="search" label="Consultar por número ID" class="purple-input" />
-
-        <!-- :items="registros" -->
+        <v-text-field cols="12" md="4" lg="3" v-model="search" label="Consultar por N° documento" class="purple-input" />
         <template>
           <v-data-table :search="search" :headers="headers" :items="pacientes" item-key="id" :items-per-page="5" class="elevation-1"></v-data-table>
         </template>
       </div>
     </div>
-    <PACIENTE :paciente_popap="paciente_popap"></PACIENTE>
+    <PACIENTE :paciente_popap="paciente_popap" v-if="paciente_popap.estado"></PACIENTE>
   </div>
 </template>
 <script>
@@ -38,12 +30,6 @@ export default {
   data: () => ({
     search: "",
     headers: [
-      {
-        text: "ID",
-        align: "center",
-        sortable: false,
-        value: "id",
-      },
       {
         text: "Nombre",
         align: "center",
@@ -113,7 +99,6 @@ export default {
   async mounted() {
     this.pacientes = await this.getPacientes();
     console.log("array pacientes", this.pacientes);
-  
 
     this.getServicios();
   },
@@ -133,7 +118,7 @@ export default {
         //   'token': Global.token
         // }
       };
-      axios.get(Global.url + "/api/Patients/listpatients/").then((res) => {
+      axios.get(Global.url + "/api/Patientspatients/").then((res) => {
         console.log("estoy en metodo get pacientes", res.status);
         if (res.status == 200) {
           this.historia_cli = res.data;
