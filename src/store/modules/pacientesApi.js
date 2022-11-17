@@ -47,5 +47,19 @@ export default {
         console.error(error);
       }
     },
+    async editarPaciente({ commit }, { id, data }) {
+      try {
+        const RES = await http({
+          url: `Patientspatients/${id}/`,
+          header: {},
+          method: "PUT",
+          data,
+        });
+        console.log("res", RES);
+        return RES;
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container fluid class="fill-height">
     <div>
       <div>
         <h1>Pacientes</h1>
@@ -8,17 +8,23 @@
         </div>
       </div>
       <div>
-        <v-text-field cols="12" md="4" lg="3" v-model="search" label="Consultar por N° documento" class="purple-input" />
+        <v-text-field cols="12" md="4" lg="3" v-model="search" label="Consultar" class="purple-input" />
         <template>
-          <v-data-table :search="search" :headers="headers" :items="pacientes" item-key="id" :items-per-page="5" class="elevation-1"></v-data-table>
+          <v-data-table :search="search" :headers="headers" :items="pacientes" item-key="id" :items-per-page="5" class="elevation-1">
+            <template v-slot:[`item.actions`]="{ item }">
+              <v-icon small color="warning" class="mr-2" @click="editPaciente(item)"> mdi-pencil </v-icon>
+            </template>
+          </v-data-table>
         </template>
       </div>
     </div>
     <PACIENTE :paciente_popap="paciente_popap" v-if="paciente_popap.estado"></PACIENTE>
-  </div>
+    <PACIENTEOP :paciente_popap="paciente_op" v-if="paciente_op.estado"></PACIENTEOP>
+  </v-container>
 </template>
 <script>
 import popapPaciente from "../components/PCT.vue";
+import paciente_op from "../components/PCT_EDIT.vue";
 import axios from "axios";
 import { Global } from "../global";
 import { mapActions } from "vuex";
@@ -26,6 +32,8 @@ import { mapActions } from "vuex";
 export default {
   components: {
     PACIENTE: popapPaciente,
+    PACIENTEOP: paciente_op,
+
   },
   data: () => ({
     search: "",
@@ -90,8 +98,12 @@ export default {
         sortable: false,
         value: "date_of_birth",
       },
+      { text: "Actions", value: "actions", sortable: false },
     ],
     paciente_popap: {
+      estado: false,
+    },
+    paciente_op: {
       estado: false,
     },
     pacientes: [],
@@ -111,7 +123,23 @@ export default {
       const id = this.search;
       let res = await this.getPaciente({ id });
     },
+    editPaciente(item) {
+      //console.log(item)
+      this.paciente_op.Name = item.Name;
+      this.paciente_op.Surname = item.Surname;
+      this.paciente_op.type_identification = item.type_identification;
+      this.paciente_op.identification_number = item.identification_number;
+      this.paciente_op.Phone = item.Phone;
+      this.paciente_op.Direction = item.Direction;
+      this.paciente_op.gender = item.gender;
+      this.paciente_op.Eps = item.Eps;
+      this.paciente_op.email = item.email;
+      this.paciente_op.date_of_birth = item.date_of_birth;
+      this.paciente_op.id = item.id;
 
+      this.paciente_op.estado = true;
+      this.paciente_op.editar = true;
+    },
     getServicios() {
       let config = {
         // Headers:{
